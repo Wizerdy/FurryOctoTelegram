@@ -105,7 +105,7 @@ MonoBehaviour:
   attackSpeed: 1
   moveSpeed: 3
   moveDelta: 0.2
-  direction: {x: 1, y: 0}
+  score: 100
 --- !u!50 &5571671525015367364
 Rigidbody2D:
   serializedVersion: 4

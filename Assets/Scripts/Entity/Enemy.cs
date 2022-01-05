@@ -7,6 +7,7 @@ public class Enemy : Entity {
     [Header("Enemy")]
     [SerializeField] private float moveSpeed = 0.2f;
     [SerializeField] private float moveDelta = 0.2f;
+    public int score;
 
     private float moveTimer = 0.0f;
     private float dontMoveTime = 0.0f;
@@ -33,6 +34,7 @@ public class Enemy : Entity {
         if (bullet != null) {
             if (bullet.side != side) {
                 Dead();
+                GameManager.instance.AddScore(score);
             }
         }
     }
