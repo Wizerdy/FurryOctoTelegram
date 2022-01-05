@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Update() {
-        transform.position += transform.up * bulletSpeed * Time.deltaTime;
+        transform.position += new Vector3(0, 1, 0) * bulletSpeed * Time.deltaTime;
     }
 
     private IEnumerator IDestroyAfter(float time) {
