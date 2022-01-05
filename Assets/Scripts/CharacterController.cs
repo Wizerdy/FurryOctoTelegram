@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void Movement() {
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), 0.0f);
         if (direction != Vector2.zero) {
             character.MoveTo(direction);
         }

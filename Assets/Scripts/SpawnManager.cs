@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
-    public List<GameObject> enemyPrefab;
+    public List<Enemy> enemyPrefab;
     public Vector2 cellNumbers;
     public Vector2 margin;
 
@@ -19,8 +19,9 @@ public class SpawnManager : MonoBehaviour {
             for (int x = 0; x < cellNumbers.x; x++) {
                 Vector2 pos = new Vector2(x * margin.x, y * margin.y);
                 pos += position;
-                GameObject prefab = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
+                Enemy prefab = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
                 prefab.transform.parent = transform;
+                GameManager.instance.enemies.Add(prefab);
             }
             if (y % 2 == 0) {
                 enemyIndex++;

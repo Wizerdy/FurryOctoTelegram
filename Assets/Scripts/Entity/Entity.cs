@@ -19,12 +19,29 @@ public abstract class Entity : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+
+        OnStart();
     }
 
     void Update() {
         if (attackCooldown > 0f) {
             attackCooldown -= Time.deltaTime;
         }
+
+        OnUpdate();
+    }
+
+    protected virtual void OnStart() { }
+    protected virtual void OnUpdate() { }
+    protected virtual void OnDead() { }
+
+    public void Dead() {
+        OnDead();
+        Destroy(gameObject);
+    }
+
+    public void MoveTo(Vector2 direction) {
+        rb.position += direction * speed * Time.deltaTime;
     }
 
     public void Attack() {
