@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public Transform leftSide;
     public Transform rightSide;
 
+    public ScoreManager scoreManager;
     private int nextEnemyDirection = 0;
 
     private void Awake() {
@@ -38,5 +39,6 @@ public class GameManager : MonoBehaviour {
     {
         totalScore += amount;
         scoreText.text = "Score : " + totalScore.ToString();
+        scoreManager.Shake();
     }
 }
