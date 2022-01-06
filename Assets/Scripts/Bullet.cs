@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
+    public GameObject body;
     public float bulletSpeed;
     public int side;
 
@@ -11,7 +12,7 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Update() {
-        transform.position += new Vector3(0, 1, 0) * bulletSpeed * Time.deltaTime;
+        transform.position += transform.up * bulletSpeed * Time.deltaTime;
     }
 
     private IEnumerator IDestroyAfter(float time) {
@@ -23,6 +24,11 @@ public class Bullet : MonoBehaviour {
         Entity entity = collision.GetComponent<Entity>();
         if (entity != null) {
             if (entity.Side == side) { return; }
+
+            if (collision.gameObject.CompareTag("Player")) {
+                // YOU LOSE
+                Debug.Break();
+            }
 
             Destroy(gameObject);
         }

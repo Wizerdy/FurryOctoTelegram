@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour {
                 pos += position;
                 Enemy prefab = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
                 prefab.transform.parent = transform;
-                GameManager.instance.enemies.Add(prefab);
+                EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), prefab));
             }
             if (y % 2 == 0) {
                 enemyIndex++;

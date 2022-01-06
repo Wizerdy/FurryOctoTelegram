@@ -6,15 +6,17 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField] protected int side;
 
     [Header("Attack")]
-    [SerializeField] protected Bullet bullet;
+    [SerializeField] protected List<Bullet> bullets;
     [SerializeField] protected float speed = 10f;
     [SerializeField] protected float bulletSpeed = 1f;
+    [SerializeField] protected Vector2 bulletDirection = Vector2.up;
     [SerializeField] protected float attackSpeed = 1f;
     protected float attackCooldown = 0f;
     protected Rigidbody2D rb = null;
 
     #region Properties
     public int Side { get { return side; } }
+    public bool CanAttack { get { return !(attackCooldown > 0.0f); } }
     #endregion
 
     void Start() {
@@ -42,13 +44,19 @@ public abstract class Entity : MonoBehaviour {
 
     public void MoveTo(Vector2 direction) {
         rb.position += direction * speed * Time.deltaTime;
+        OnMove(direction);
     }
 
+    protected virtual void OnMove(Vector2 direction) { }
+
     public void Attack() {
-        if (bullet == null || attackCooldown > 0f) { return; }
+        if (bullets == null || attackCooldown > 0f) { return; }
         if (attackSpeed > 0f) { attackCooldown = 1f / attackSpeed; }
 
-        Bullet lastBullet = Instantiate(bullet, transform.position, transform.rotation);
+        int bulletIndex = Random.Range(0, bullets.Count - 1);
+        //Quaternion rotation = Quaternion.LookRotation(bulletDirection, Vector3.up);
+        Quaternion rotation = Quaternion.LookRotation(transform.forward, bulletDirection);
+        Bullet lastBullet = Instantiate(bullets[bulletIndex], transform.position, rotation);
         lastBullet.side = side;
         lastBullet.bulletSpeed = bulletSpeed;
     }

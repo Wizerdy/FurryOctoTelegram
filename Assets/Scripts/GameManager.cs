@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]public int totalScore;
     public Text scoreText;
 
-    public List<Entity> enemies;
+    public EnemyManager enemyManager;
 
     public Vector2 enemyDirection;
     public Transform leftSide;

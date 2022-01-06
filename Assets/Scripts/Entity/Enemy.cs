@@ -19,14 +19,14 @@ public class Enemy : Entity {
         dontMoveTime = Random.Range(0, moveDelta);
     }
 
-    protected override void OnUpdate() {
-        if (rb.position.x < GameManager.instance.leftSide.position.x) {
-            GameManager.instance.ChangeEnemyDirection(1);
-        } else if (rb.position.x > GameManager.instance.rightSide.position.x) {
-            GameManager.instance.ChangeEnemyDirection(-1);
-        }
+    protected override void OnUpdate() { }
 
-        AutoMove();
+    protected override void OnMove(Vector2 direction) {
+        if (rb.position.x < GameManager.instance.leftSide.position.x) {
+            EnemyManager.instance.ChangeDirection(EnemyManager.Side.RIGHT);
+        } else if (rb.position.x > GameManager.instance.rightSide.position.x) {
+            EnemyManager.instance.ChangeDirection(EnemyManager.Side.LEFT);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -36,21 +36,15 @@ public class Enemy : Entity {
                 Dead();
                 GameManager.instance.AddScore(score);
             }
+            return;
+        }
+        if (collision.gameObject.CompareTag("Player")) {
+            // YOU LOSE
+            Debug.Break();
         }
     }
 
-    private void AutoMove() {
-        if (moveTimer > 0.0f) {
-            moveTimer -= Time.deltaTime;
-            if (moveTimer - dontMoveTime <= 0.0f) {
-                MoveTo(GameManager.instance.enemyDirection);
-            }
-
-            if (moveTimer < 0.0f) {
-                if (moveSpeed <= 0) { moveSpeed = 0.00001f; }
-                moveTimer = 1.0f / moveSpeed;
-                dontMoveTime = Random.Range(0, moveDelta);
-            }
-        }
+    private void OnDestroy() {
+        EnemyManager.instance.enemyList.Remove(EnemyManager.instance.GetEnemy(this));
     }
 }
