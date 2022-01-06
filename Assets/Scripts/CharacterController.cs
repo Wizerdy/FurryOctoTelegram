@@ -19,7 +19,7 @@ public class CharacterController : MonoBehaviour {
             character.MoveTo(direction);
         }
 
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButton("Fire1")) {
             character.Attack();
         }
     }

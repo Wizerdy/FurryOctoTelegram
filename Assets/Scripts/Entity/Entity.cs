@@ -50,7 +50,7 @@ public abstract class Entity : MonoBehaviour {
     protected virtual void OnMove(Vector2 direction) { }
 
     public void Attack() {
-        if (bullets == null || attackCooldown > 0f) { return; }
+        if (bullets == null || bullets.Count <= 0 || attackCooldown > 0f) { return; }
         if (attackSpeed > 0f) { attackCooldown = 1f / attackSpeed; }
 
         int bulletIndex = Random.Range(0, bullets.Count - 1);

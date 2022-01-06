@@ -5,19 +5,9 @@ using ToolsBoxEngine;
 
 public class Enemy : Entity {
     [Header("Enemy")]
-    [SerializeField] private float moveSpeed = 0.2f;
-    [SerializeField] private float moveDelta = 0.2f;
     public int score;
 
-    private float moveTimer = 0.0f;
-    private float dontMoveTime = 0.0f;
-
-    protected override void OnStart() {
-        if (moveSpeed <= 0) { moveSpeed = 0.0001f; }
-
-        moveTimer = 1.0f / moveSpeed;
-        dontMoveTime = Random.Range(0, moveDelta);
-    }
+    protected override void OnStart() { }
 
     protected override void OnUpdate() { }
 

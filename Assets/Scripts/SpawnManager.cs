@@ -10,11 +10,21 @@ public class SpawnManager : MonoBehaviour {
 
     [Header("UFO")]
     public List<Enemy> ufoPrefab;
-    public float ufoSpawnTime;
+    public float ufoSpawnTime = 5.0f;
+    public float ufoSpawnTimeDelta = 0.5f;
     private float ufoSpawnTimer;
 
     void Start() {
         SpawnEnemies(transform.position);
+    }
+
+    private void Update() {
+        if (ufoSpawnTimer > 0.0f) {
+            ufoSpawnTimer -= Time.deltaTime;
+        } else {
+            ufoSpawnTimer = Random.Range(ufoSpawnTime - ufoSpawnTimeDelta, ufoSpawnTime + ufoSpawnTimeDelta);
+            SpawnUFO(transform.position);
+        }
     }
 
     public void SpawnEnemies(Vector2 position) {
