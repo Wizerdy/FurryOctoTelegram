@@ -101,7 +101,7 @@ MonoBehaviour:
   side: 2
   bullets:
   - {fileID: 7369600834492724658, guid: eaa912af8376fef4e946010ee0b0c662, type: 3}
-  speed: 20
+  speed: 10
   bulletSpeed: 10
   bulletDirection: {x: 0, y: -1}
   attackSpeed: 1
