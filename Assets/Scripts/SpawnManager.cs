@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
+    [Header("Grid")]
     public List<Enemy> enemyPrefab;
     public Vector2 cellNumbers;
     public Vector2 margin;
+
+    [Header("UFO")]
+    public List<Enemy> ufoPrefab;
+    public float ufoSpawnTime;
+    private float ufoSpawnTimer;
 
     void Start() {
         SpawnEnemies(transform.position);
@@ -19,14 +25,22 @@ public class SpawnManager : MonoBehaviour {
             for (int x = 0; x < cellNumbers.x; x++) {
                 Vector2 pos = new Vector2(x * margin.x, y * margin.y);
                 pos += position;
-                Enemy prefab = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
-                prefab.transform.parent = transform;
-                EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), prefab));
+                Enemy lastEnemy = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
+                lastEnemy.transform.parent = transform;
+                EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), lastEnemy));
             }
             if (y % 2 == 0) {
                 enemyIndex++;
                 if (enemyIndex >= enemyPrefab.Count) { enemyIndex = enemyPrefab.Count - 1; }
             }
         }
+    }
+
+    public void SpawnUFO(Vector2 position) {
+        if (ufoPrefab == null) { return; }
+
+        int index = Random.Range(0, ufoPrefab.Count - 1);
+        Enemy lastEnemy = Instantiate(ufoPrefab[index], position, Quaternion.identity);
+        EnemyManager.instance.ufoList.Add(lastEnemy);
     }
 }

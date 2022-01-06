@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour {
     public static EnemyManager instance;
 
     [HideInInspector] public List<EnemyCell> enemyList;
-    public Vector2 enemyDirection;
+    [HideInInspector] public List<Enemy> ufoList;
     public float enemySpeed;
     public float timeToMove = 1f;
 
@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour {
     public float attackCooldown;
     private float attackTimer;
 
+    private Vector2 enemyDirection = Vector2.right;
     private Vector2[] nextEnemyDirection;
     private float moveTimer;
 
@@ -59,6 +60,12 @@ public class EnemyManager : MonoBehaviour {
         } else {
             AttackEnemy();
             attackTimer = attackCooldown;
+        }
+
+        if (ufoList != null && ufoList.Count > 0) {
+            for (int i = 0; i < ufoList.Count; i++) {
+                ufoList[i].Attack();
+            }
         }
     }
 
