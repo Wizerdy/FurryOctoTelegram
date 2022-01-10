@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
-    [HideInInspector]public int totalScore;
+    [HideInInspector] public int totalScore;
     public Text scoreText;
 
     public EnemyManager enemyManager;
@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public Vector2 enemyDirection;
     public Transform leftSide;
     public Transform rightSide;
+
+    public GameObject[] Organs;
 
     public ScoreManager scoreManager;
     public CameraController cameraManager;
@@ -41,5 +43,15 @@ public class GameManager : MonoBehaviour {
         totalScore += amount;
         scoreText.text = "Score : " + totalScore.ToString();
         scoreManager.Shake();
+    }
+
+    public void OrganExplosion(Transform spawnPoint, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            GameObject Organ = Instantiate(Organs[Random.Range(0, Organs.Length - 1)], spawnPoint.position, spawnPoint.rotation, transform);
+            Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-25, 25), Random.Range(-10, 25)), ForceMode2D.Impulse);
+            Destroy(Organ, 3f);
+        }
     }
 }

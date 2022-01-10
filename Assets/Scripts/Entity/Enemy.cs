@@ -23,6 +23,7 @@ public class Enemy : Entity {
         Bullet bullet = collision.GetComponent<Bullet>();
         if (bullet != null) {
             if (bullet.side != side) {
+                GameManager.instance.OrganExplosion(transform, 3);
                 Dead();
                 GameManager.instance.AddScore(score);
                 GameManager.instance.cameraManager.OnEnemyDestroyed();
