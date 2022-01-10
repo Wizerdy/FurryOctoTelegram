@@ -7,9 +7,17 @@ public class Enemy : Entity {
     [Header("Enemy")]
     public int score;
 
+    private Coroutine rtn_delayMoveTo = null;
+
     protected override void OnStart() { }
 
     protected override void OnUpdate() { }
+
+    public void MoveTo(Vector2 direction, float maxDeltaTime) {
+        if (rtn_delayMoveTo != null) { StopCoroutine(rtn_delayMoveTo); }
+        float time = Random.Range(0, maxDeltaTime);
+        rtn_delayMoveTo = StartCoroutine(Tools.Delay(MoveTo, direction, time));
+    }
 
     protected override void OnMove(Vector2 direction) {
         if (rb.position.x < GameManager.instance.leftSide.position.x) {
@@ -35,6 +43,7 @@ public class Enemy : Entity {
 
     protected override void OnDead() {
         try {
+            GameManager.instance.enemyManager.OnEnemyDeath(this);
             GameManager.instance.OrganExplosion(transform, 3);
             GameManager.instance.AddScore(score);
             GameManager.instance.cameraManager.OnEnemyDestroyed();
@@ -45,5 +54,15 @@ public class Enemy : Entity {
 
     private void OnDestroy() {
         EnemyManager.instance.enemyList.Remove(EnemyManager.instance.GetEnemy(this));
+    }
+
+    private void OnDrawGizmos() {
+        if (destination != null) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(destination.Value, 0.1f);
+        } else {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(rb.position, 0.1f);
+        }
     }
 }

@@ -49,11 +49,12 @@ MonoBehaviour:
   side: 2
   bullets:
   - {fileID: 7369600834492724658, guid: eaa912af8376fef4e946010ee0b0c662, type: 3}
-  speed: 3
+  speed: 5
   bulletSpeed: 12
   bulletDirection: {x: 0, y: -1}
   attackSpeed: 1
   debugDestination: {x: 0, y: 0}
+  speedFactor: 1
   score: 100
 --- !u!212 &5571671525015367365
 SpriteRenderer:

@@ -34,6 +34,8 @@ public class EnemyManager : MonoBehaviour {
     private Vector2[] nextEnemyDirection;
     private float moveTimer;
 
+    #region Unity Callbacks
+
     private void Awake() {
         instance = this;
 
@@ -58,7 +60,7 @@ public class EnemyManager : MonoBehaviour {
             moveTimer -= Time.deltaTime;
         } else {
             MoveEnemies();
-            moveTimer = timeToMove;
+            moveTimer = timeToMove / speedFactor;
         }
 
         // Attack
@@ -75,13 +77,13 @@ public class EnemyManager : MonoBehaviour {
                 ufoList[i].Attack();
             }
         }
-
-        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * Mathf.InverseLerp(0, enemyMax, enemyList.Count));
     }
+
+    #endregion
 
     private void MoveEnemies() {
         for (int i = 0; i < enemyList.Count; i++) {
-            enemyList[i].enemy.MoveTo(nextEnemyDirection[0] * enemySpeed * speedFactor);
+            enemyList[i].enemy.MoveTo(nextEnemyDirection[0] * enemySpeed, timeToMove / speedFactor / 2f);
         }
 
         nextEnemyDirection[0] = nextEnemyDirection[1];
@@ -123,6 +125,15 @@ public class EnemyManager : MonoBehaviour {
         nextEnemyDirection[1] = Vector2.down;
     }
 
+    public void OnEnemyDeath(Enemy enemy) {
+        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * Mathf.InverseLerp(0, enemyMax, enemyList.Count));
+        for (int i = 0; i < enemyList.Count; i++) {
+            enemyList[i].enemy.speedFactor = speedFactor;
+        }
+    }
+
+    #region Getters
+
     public List<EnemyCell> GetEnemyOnFront() {
         List<EnemyCell> output = new List<EnemyCell>();
 
@@ -150,4 +161,6 @@ public class EnemyManager : MonoBehaviour {
         EnemyCell enemyCell = enemyList.Find(x => x.enemy == enemy);
         return enemyCell;
     }
+
+    #endregion
 }

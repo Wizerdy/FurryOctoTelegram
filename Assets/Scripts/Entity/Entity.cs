@@ -17,7 +17,8 @@ public abstract class Entity : MonoBehaviour {
 
     [Header("Movement")]
     public Vector2 debugDestination;
-    private Nullable<Vector2> destination;
+    protected Nullable<Vector2> destination;
+    [HideInInspector] public float speedFactor = 1f;
 
     #region Properties
     public int Side { get { return side; } }
@@ -54,17 +55,25 @@ public abstract class Entity : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void MoveTo(Vector2 direction) {
+    public virtual void MoveTo(Vector2 direction) {
         //rb.position += direction * speed * Time.deltaTime;
-        destination = rb.position + direction;
+        Vector2 startPos;
+        if (destination == null || destination.Value == Vector2.zero) {
+            startPos = rb.position;
+        } else {
+            startPos = destination.Value;
+        }
+
+        destination = startPos + direction;
         OnMove(direction);
     }
 
-    private void UpdateMove() {
+    protected virtual void UpdateMove() {
         if (destination != null) {
             Vector2 direction = (destination.Value - (Vector2)transform.position).normalized;
-            rb.position += direction * speed * Time.deltaTime;
-            if (Vector2.Distance(destination.Value, rb.position) < 0.2f) {
+            rb.position += direction * speed * speedFactor * Time.deltaTime;
+            if (Vector2.Distance(destination.Value, rb.position) < speed * speedFactor * Time.deltaTime) {
+                rb.position = destination.Value;
                 destination = null;
             }
         }

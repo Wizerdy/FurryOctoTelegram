@@ -779,6 +779,8 @@ MonoBehaviour:
   bulletSpeed: 15
   bulletDirection: {x: 0, y: 1}
   attackSpeed: 2
+  debugDestination: {x: 0, y: 0}
+  speedFactor: 1
 --- !u!1 &319523787
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,10 +844,13 @@ MonoBehaviour:
   totalScore: 0
   scoreText: {fileID: 2019478133}
   enemyManager: {fileID: 414320553}
+  spawnManager: {fileID: 550421712}
   enemyDirection: {x: 0.1, y: 0}
   leftSide: {fileID: 319523788}
   rightSide: {fileID: 140965870}
+  organs: []
   scoreManager: {fileID: 0}
+  cameraManager: {fileID: 0}
 --- !u!4 &414320552
 Transform:
   m_ObjectHideFlags: 0
@@ -875,8 +880,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ufoList: []
-  enemySpeed: 30
+  enemySpeed: 1
   timeToMove: 0.5
+  maxEnemySpeed: 3
   attackCooldown: 1.5
 --- !u!1 &506134713
 GameObject:
@@ -1280,7 +1286,7 @@ MonoBehaviour:
   - {fileID: 8934528794006926020, guid: 82080184098df2545a6052a0278eb83b, type: 3}
   - {fileID: 8934528794006926020, guid: 6cdafa4255b019c43ae00934371868b4, type: 3}
   cellNumbers: {x: 12, y: 5}
-  margin: {x: 0.1, y: -1}
+  margin: {x: 1, y: -1}
   ufoPrefab:
   - {fileID: 4098375264739594037, guid: bdfc2e2534f111e488302fbd86746097, type: 3}
   ufoSpawnTime: 5
@@ -1293,7 +1299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550421711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.76, y: 4.5, z: -10.589948}
+  m_LocalPosition: {x: -5.76, y: 4.27, z: -10.589948}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
