@@ -22,8 +22,10 @@ public class SpawnManager : MonoBehaviour {
         if (ufoSpawnTimer > 0.0f) {
             ufoSpawnTimer -= Time.deltaTime;
         } else {
+
+            if (ufoPrefab.Count <= 0) { return; }
             ufoSpawnTimer = Random.Range(ufoSpawnTime - ufoSpawnTimeDelta, ufoSpawnTime + ufoSpawnTimeDelta);
-            //SpawnUFO(transform.position);
+            SpawnUFO(transform.position);
         }
     }
 

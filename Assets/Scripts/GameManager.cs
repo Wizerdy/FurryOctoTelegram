@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour {
     public Text scoreText;
 
     public EnemyManager enemyManager;
+    public SpawnManager spawnManager;
 
     public Vector2 enemyDirection;
     public Transform leftSide;
     public Transform rightSide;
 
-    public GameObject[] Organs;
+    public GameObject[] organs;
 
     public ScoreManager scoreManager;
     public CameraController cameraManager;
@@ -38,18 +39,16 @@ public class GameManager : MonoBehaviour {
         nextEnemyDirection = direction;
     }
 
-    public void AddScore(int amount)
-    {
+    public void AddScore(int amount) {
         totalScore += amount;
         scoreText.text = "Score : " + totalScore.ToString();
         scoreManager.Shake();
     }
 
-    public void OrganExplosion(Transform spawnPoint, int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            GameObject Organ = Instantiate(Organs[Random.Range(0, Organs.Length - 1)], spawnPoint.position, spawnPoint.rotation, transform);
+    public void OrganExplosion(Transform spawnPoint, int number) {
+        for (int i = 0; i < number; i++) {
+            if (organs.Length <= 0) { return; }
+            GameObject Organ = Instantiate(organs[Random.Range(0, organs.Length - 1)], spawnPoint.position, spawnPoint.rotation, transform);
             Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-25, 25), Random.Range(-10, 25)), ForceMode2D.Impulse);
             Destroy(Organ, 3f);
         }

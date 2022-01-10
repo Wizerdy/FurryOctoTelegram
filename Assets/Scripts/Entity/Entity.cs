@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,10 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField] protected float attackSpeed = 1f;
     protected float attackCooldown = 0f;
     protected Rigidbody2D rb = null;
+
+    [Header("Movement")]
+    public Vector2 debugDestination;
+    private Nullable<Vector2> destination;
 
     #region Properties
     public int Side { get { return side; } }
@@ -30,7 +35,14 @@ public abstract class Entity : MonoBehaviour {
             attackCooldown -= Time.deltaTime;
         }
 
+        if (destination != null) {
+            debugDestination = destination.Value;
+        }
         OnUpdate();
+    }
+
+    private void FixedUpdate() {
+        UpdateMove();
     }
 
     protected virtual void OnStart() { }
@@ -43,8 +55,19 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void MoveTo(Vector2 direction) {
-        rb.position += direction * speed * Time.deltaTime;
+        //rb.position += direction * speed * Time.deltaTime;
+        destination = rb.position + direction;
         OnMove(direction);
+    }
+
+    private void UpdateMove() {
+        if (destination != null) {
+            Vector2 direction = (destination.Value - (Vector2)transform.position).normalized;
+            rb.position += direction * speed * Time.deltaTime;
+            if (Vector2.Distance(destination.Value, rb.position) < 0.2f) {
+                destination = null;
+            }
+        }
     }
 
     protected virtual void OnMove(Vector2 direction) { }
@@ -53,7 +76,7 @@ public abstract class Entity : MonoBehaviour {
         if (bullets == null || bullets.Count <= 0 || attackCooldown > 0f) { return; }
         if (attackSpeed > 0f) { attackCooldown = 1f / attackSpeed; }
 
-        int bulletIndex = Random.Range(0, bullets.Count - 1);
+        int bulletIndex = UnityEngine.Random.Range(0, bullets.Count - 1);
         //Quaternion rotation = Quaternion.LookRotation(bulletDirection, Vector3.up);
         Quaternion rotation = Quaternion.LookRotation(transform.forward, bulletDirection);
         Bullet lastBullet = Instantiate(bullets[bulletIndex], transform.position, rotation);

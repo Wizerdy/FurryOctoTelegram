@@ -23,16 +23,23 @@ public class Enemy : Entity {
         Bullet bullet = collision.GetComponent<Bullet>();
         if (bullet != null) {
             if (bullet.side != side) {
-                GameManager.instance.OrganExplosion(transform, 3);
                 Dead();
-                GameManager.instance.AddScore(score);
-                GameManager.instance.cameraManager.OnEnemyDestroyed();
             }
             return;
         }
         if (collision.gameObject.CompareTag("Player")) {
             // YOU LOSE
             Debug.Break();
+        }
+    }
+
+    protected override void OnDead() {
+        try {
+            GameManager.instance.OrganExplosion(transform, 3);
+            GameManager.instance.AddScore(score);
+            GameManager.instance.cameraManager.OnEnemyDestroyed();
+        } catch(System.Exception e) {
+            Debug.LogException(e);
         }
     }
 

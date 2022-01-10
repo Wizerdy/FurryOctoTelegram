@@ -22,6 +22,9 @@ public class EnemyManager : MonoBehaviour {
     [HideInInspector] public List<Enemy> ufoList;
     public float enemySpeed;
     public float timeToMove = 1f;
+    public float maxEnemySpeed;
+    private float speedFactor;
+    private int enemyMax = 0;
 
     [Header("Attacks")]
     public float attackCooldown;
@@ -34,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
     private void Awake() {
         instance = this;
 
-        nextEnemyDirection = new Vector2[2];
+        nextEnemyDirection = new Vector2[3];
         for (int i = 0; i < nextEnemyDirection.Length; i++) {
             nextEnemyDirection[i] = enemyDirection;
         }
@@ -45,9 +48,12 @@ public class EnemyManager : MonoBehaviour {
     void Start() {
         moveTimer = timeToMove;
         attackTimer = attackCooldown;
+        enemyMax = Mathf.FloorToInt(GameManager.instance.spawnManager.cellNumbers.x * GameManager.instance.spawnManager.cellNumbers.y);
+        speedFactor = 1;
     }
 
     void Update() {
+        // Movements
         if (moveTimer > 0.0f) {
             moveTimer -= Time.deltaTime;
         } else {
@@ -55,6 +61,7 @@ public class EnemyManager : MonoBehaviour {
             moveTimer = timeToMove;
         }
 
+        // Attack
         if (attackTimer > 0.0f) {
             attackTimer -= Time.deltaTime;
         } else {
@@ -62,20 +69,23 @@ public class EnemyManager : MonoBehaviour {
             attackTimer = attackCooldown;
         }
 
+        // Ufos
         if (ufoList != null && ufoList.Count > 0) {
             for (int i = 0; i < ufoList.Count; i++) {
                 ufoList[i].Attack();
             }
         }
+
+        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * Mathf.InverseLerp(0, enemyMax, enemyList.Count));
     }
 
     private void MoveEnemies() {
         for (int i = 0; i < enemyList.Count; i++) {
-            enemyList[i].enemy.MoveTo(enemyDirection * enemySpeed);
+            enemyList[i].enemy.MoveTo(nextEnemyDirection[0] * enemySpeed * speedFactor);
         }
 
-        enemyDirection = nextEnemyDirection[0];
         nextEnemyDirection[0] = nextEnemyDirection[1];
+        nextEnemyDirection[1] = nextEnemyDirection[2];
     }
 
     private void AttackEnemy() {
@@ -94,22 +104,23 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void ChangeDirection(Side side) {
-        if (enemyDirection == Vector2.down) { return; }
+        Vector2 directionToGo = Vector2.zero;
 
         switch (side) {
-            case Side.NONE:
-                break;
             case Side.LEFT:
-                nextEnemyDirection[1] = new Vector2(Tools.Negative(enemyDirection.x), enemyDirection.y);
+                directionToGo = new Vector2(Tools.Negative(enemyDirection.x), enemyDirection.y);
                 break;
             case Side.RIGHT:
-                nextEnemyDirection[1] = new Vector2(Tools.Positive(enemyDirection.x), enemyDirection.y);
-                break;
-            default:
+                directionToGo = new Vector2(Tools.Positive(enemyDirection.x), enemyDirection.y);
                 break;
         }
 
-        nextEnemyDirection[0] = Vector2.down;
+        if (nextEnemyDirection[1] == directionToGo || nextEnemyDirection[2] == directionToGo) {
+            return;
+        }
+
+        nextEnemyDirection[2] = directionToGo;
+        nextEnemyDirection[1] = Vector2.down;
     }
 
     public List<EnemyCell> GetEnemyOnFront() {
