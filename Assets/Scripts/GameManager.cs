@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     public Transform rightSide;
 
     public ScoreManager scoreManager;
+    public CameraController cameraManager;
     private int nextEnemyDirection = 0;
 
     private void Awake() {

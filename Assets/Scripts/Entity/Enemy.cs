@@ -25,6 +25,7 @@ public class Enemy : Entity {
             if (bullet.side != side) {
                 Dead();
                 GameManager.instance.AddScore(score);
+                GameManager.instance.cameraManager.OnEnemyDestroyed();
             }
             return;
         }

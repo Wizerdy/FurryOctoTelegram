@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour {
             ufoSpawnTimer -= Time.deltaTime;
         } else {
             ufoSpawnTimer = Random.Range(ufoSpawnTime - ufoSpawnTimeDelta, ufoSpawnTime + ufoSpawnTimeDelta);
-            SpawnUFO(transform.position);
+            //SpawnUFO(transform.position);
         }
     }
 
