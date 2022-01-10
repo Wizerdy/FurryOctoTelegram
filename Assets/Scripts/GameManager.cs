@@ -50,8 +50,8 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < number; i++)
         {
             GameObject Organ = Instantiate(Organs[Random.Range(0, Organs.Length - 1)], spawnPoint.position, spawnPoint.rotation, transform);
-            Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-25, 25), Random.Range(-10, 25)), ForceMode2D.Impulse);
-            Destroy(Organ, 3f);
+            Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), ForceMode2D.Impulse);
+            Destroy(Organ, 2f);
         }
     }
 }
