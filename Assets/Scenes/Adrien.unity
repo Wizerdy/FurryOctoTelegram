@@ -2346,6 +2346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 874167807}
   - component: {fileID: 874167808}
+  - component: {fileID: 874167809}
   m_Layer: 0
   m_Name: goutte (1)
   m_TagString: Untagged
@@ -2419,6 +2420,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &874167809
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874167806}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 635b9b4e633a97748b5cb7e4bc4417f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &906743297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,6 +4328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1635172914}
   - component: {fileID: 1635172915}
+  - component: {fileID: 1635172916}
   m_Layer: 0
   m_Name: goutte (2)
   m_TagString: Untagged
@@ -4381,6 +4402,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1635172916
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635172913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1c23bbc2966f85478f57d176972471d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1651684459
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,6 +4563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1704285045}
   - component: {fileID: 1704285044}
+  - component: {fileID: 1704285043}
   m_Layer: 0
   m_Name: goutte
   m_TagString: Untagged
@@ -4530,6 +4571,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &1704285043
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704285042}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 785cab7a1431f4941b520d77209f23d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &1704285044
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4591,7 +4651,7 @@ Transform:
   m_GameObject: {fileID: 1704285042}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.269969, y: -0.25118947, z: 0.5915936}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 906743299}
   m_RootOrder: 0
