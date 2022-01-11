@@ -28,7 +28,9 @@ public abstract class Entity : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
-
+        if (attackPoint == null) {
+            attackPoint = transform;
+        }
         OnStart();
     }
 
