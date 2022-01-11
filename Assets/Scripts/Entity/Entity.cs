@@ -12,6 +12,7 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField] protected float bulletSpeed = 1f;
     [SerializeField] protected Vector2 bulletDirection = Vector2.up;
     [SerializeField] protected float attackSpeed = 1f;
+    [SerializeField] protected Transform attackPoint;
     protected float attackCooldown = 0f;
     protected Rigidbody2D rb = null;
 
@@ -88,7 +89,7 @@ public abstract class Entity : MonoBehaviour {
         int bulletIndex = UnityEngine.Random.Range(0, bullets.Count - 1);
         //Quaternion rotation = Quaternion.LookRotation(bulletDirection, Vector3.up);
         Quaternion rotation = Quaternion.LookRotation(transform.forward, bulletDirection);
-        Bullet lastBullet = Instantiate(bullets[bulletIndex], transform.position, rotation);
+        Bullet lastBullet = Instantiate(bullets[bulletIndex], attackPoint.position, rotation);
         lastBullet.side = side;
         lastBullet.bulletSpeed = bulletSpeed;
     }
