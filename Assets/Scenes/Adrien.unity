@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 241751105}
   - component: {fileID: 241751106}
   - component: {fileID: 241751107}
+  - component: {fileID: 241751108}
   m_Layer: 6
   m_Name: ElPlayerDeLaVega
   m_TagString: Untagged
@@ -1017,8 +1018,28 @@ MonoBehaviour:
   bulletSpeed: 15
   bulletDirection: {x: 0, y: 1}
   attackSpeed: 1
+  attackPoint: {fileID: 1925051844}
   debugDestination: {x: 0, y: 0}
   speedFactor: 1
+--- !u!95 &241751108
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241751101}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c6e8630e1b31d684288739870759bb06, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &319523787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,6 +1220,10 @@ MonoBehaviour:
   scoreManager: {fileID: 414320554}
   cameraManager: {fileID: 519420030}
   ps: {fileID: 0}
+  leftBound: {fileID: 0}
+  rightBound: {fileID: 0}
+  topBound: {fileID: 0}
+  botBound: {fileID: 0}
 --- !u!4 &414320552
 Transform:
   m_ObjectHideFlags: 0
@@ -4938,7 +4963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925051843}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.096, y: 0.278, z: 0}
+  m_LocalPosition: {x: 0.083, y: 0.278, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241751104}
