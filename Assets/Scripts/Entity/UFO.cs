@@ -14,5 +14,10 @@ public class UFO : Enemy {
 
     protected override void OnUpdate() {
         MoveTo(Vector2.right);
+
+        if (GameManager.instance.rightBound == null) { return; }
+        if (rb.position.x > GameManager.instance.rightBound.position.x) {
+            Destroy(gameObject);
+        }
     }
 }

@@ -25,7 +25,13 @@ public class SpawnManager : MonoBehaviour {
 
             if (ufoPrefab.Count <= 0) { return; }
             ufoSpawnTimer = Random.Range(ufoSpawnTime - ufoSpawnTimeDelta, ufoSpawnTime + ufoSpawnTimeDelta);
-            SpawnUFO(transform.position);
+            Vector3 spawnPos;
+            if (GameManager.instance.leftBound != null) {
+                spawnPos = GameManager.instance.leftBound.position;
+            } else {
+                spawnPos = transform.position;
+            }
+            SpawnUFO(spawnPos);
         }
     }
 

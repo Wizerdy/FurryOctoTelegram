@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
     public ParticleSystem ps;
     private int nextEnemyDirection = 0;
 
+    public Transform leftBound, rightBound, topBound, botBound;
+
     private void Awake() {
         instance = this;
     }
