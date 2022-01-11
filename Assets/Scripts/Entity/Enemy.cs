@@ -7,6 +7,8 @@ public class Enemy : Entity {
     [Header("Enemy")]
     public int score;
 
+    public GameObject[] corpse;
+
     private Coroutine rtn_delayMoveTo = null;
 
     protected override void OnStart() { }
@@ -41,10 +43,25 @@ public class Enemy : Entity {
         }
     }
 
+    public void CorpseExplosion()
+    {
+        for (int i = 0; i < corpse.Length; i++)
+        {
+            float randX = Random.Range(-1f, 1f);
+            float randY = Random.Range(-1f, 1f);
+            Vector3 randomVector3 = new Vector3(transform.position.x + randX, transform.position.y + randY, transform.position.z);
+            GameObject trash = Instantiate(corpse[i], randomVector3, transform.rotation, GameManager.instance.transform);
+            trash.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f)), ForceMode2D.Impulse);
+            Destroy(trash, 2f);
+        }
+    }
+
     protected override void OnDead() {
         try {
             GameManager.instance.enemyManager.OnEnemyDeath(this);
-            GameManager.instance.OrganExplosion(transform, 3);
+            GameManager.instance.OrganExplosion(transform, 1);
+            GameManager.instance.BloodExplosion(transform);
+            CorpseExplosion();
             GameManager.instance.AddScore(score);
             GameManager.instance.cameraManager.OnEnemyDestroyed();
         } catch(System.Exception e) {
@@ -62,7 +79,7 @@ public class Enemy : Entity {
             Gizmos.DrawSphere(destination.Value, 0.1f);
         } else {
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(rb.position, 0.1f);
+            //Gizmos.DrawSphere(rb.position, 0.1f);
         }
     }
 }
