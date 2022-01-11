@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
     public CameraController cameraManager;
     private int nextEnemyDirection = 0;
 
+    public Transform leftBound, rightBound, topBound, botBound;
+
     private void Awake() {
         instance = this;
     }
