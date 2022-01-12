@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour {
     public void BloodExplosion(Transform spawnPoint)
     {
         GameObject pEffect = Instantiate(bloodExplosion, spawnPoint.position, spawnPoint.rotation, transform);
+        backgroundManager.AddToRoad(pEffect);
         Destroy(pEffect, 10f);
     }
 }
