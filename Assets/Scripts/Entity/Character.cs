@@ -10,4 +10,8 @@ public class Character : Entity {
         if (rb.position.x < GameManager.instance.leftSide.position.x && direction.x < 0) { return; }
         rb.position += direction * speed * Time.deltaTime;
     }
+
+    protected override void OnAttack() {
+        animator.SetTrigger("Attack");
+    }
 }

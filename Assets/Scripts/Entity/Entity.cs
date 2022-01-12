@@ -19,6 +19,7 @@ public abstract class Entity : MonoBehaviour {
     [Header("Movement")]
     protected Nullable<Vector2> destination;
     [HideInInspector] public float speedFactor = 1f;
+    protected Animator animator = null;
 
     #region Properties
     public int Side { get { return side; } }
@@ -30,6 +31,8 @@ public abstract class Entity : MonoBehaviour {
         if (attackPoint == null) {
             attackPoint = transform;
         }
+
+        if (animator == null) { animator = GetComponent<Animator>(); }
         OnStart();
     }
 
@@ -47,6 +50,7 @@ public abstract class Entity : MonoBehaviour {
     protected virtual void OnStart() { }
     protected virtual void OnUpdate() { }
     protected virtual void OnDead() { }
+    protected virtual void OnAttack() { }
 
     public void Dead() {
         OnDead();
@@ -96,5 +100,7 @@ public abstract class Entity : MonoBehaviour {
         Bullet lastBullet = Instantiate(bullets[bulletIndex], attackPoint.position, rotation);
         lastBullet.side = side;
         lastBullet.bulletSpeed = bulletSpeed;
+
+        OnAttack();
     }
 }

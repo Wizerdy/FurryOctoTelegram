@@ -140,6 +140,10 @@ public class EnemyManager : MonoBehaviour {
         for (int i = 0; i < enemyList.Count; i++) {
             enemyList[i].enemy.speedFactor = speedFactor;
         }
+
+        if (HasWaveEnd) {
+            //GameManager.instance.AddDifficulty();
+        }
     }
 
     #region Getters

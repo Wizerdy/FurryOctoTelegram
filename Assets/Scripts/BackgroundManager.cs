@@ -29,7 +29,9 @@ public class BackgroundManager : MonoBehaviour {
         if (maps[0].position.y <= -mapSize.y) {
             maps[0].position = maps[2].position + Vector3.up * mapSize.y;
             for (int i = 0; i < maps[0].childCount; i++) {
-                Destroy(maps[0].GetChild(i).gameObject);
+                if (maps[0].GetChild(i).name != "Map") {
+                    Destroy(maps[0].GetChild(i).gameObject);
+                }
             }
 
             Transform tempMap = maps[0];
