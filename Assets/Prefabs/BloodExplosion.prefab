@@ -1425,7 +1425,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     mode: 1
     timeMode: 0
     fps: 30
@@ -1544,15 +1544,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 6522892037690678657, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: 4024729960286472583, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -1667774988476886645, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -4786987043797231081, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -2295820996469279564, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -8598131422708522949, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -7357499508128846940, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -8638699747862782327, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
-    - sprite: {fileID: -8243838833914322012, guid: 509f42c71a0523c4290aeab2c938c9b8, type: 3}
+    - sprite: {fileID: -6891849226732969099, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 4152639751854352677, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 8953425822392152382, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: -7621089966849109716, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -11170,7 +11165,7 @@ ParticleSystem:
   UVModule:
     serializedVersion: 2
     enabled: 1
-    mode: 0
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -11288,7 +11283,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -6891849226732969099, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 4152639751854352677, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 8953425822392152382, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: -7621089966849109716, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -16034,7 +16032,7 @@ ParticleSystem:
   UVModule:
     serializedVersion: 2
     enabled: 1
-    mode: 0
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -16152,7 +16150,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -6891849226732969099, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 4152639751854352677, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: 8953425822392152382, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
+    - sprite: {fileID: -7621089966849109716, guid: 8ae5e3bc884db1244bfd868fca74170e, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
