@@ -17,7 +17,6 @@ public abstract class Entity : MonoBehaviour {
     protected Rigidbody2D rb = null;
 
     [Header("Movement")]
-    public Vector2 debugDestination;
     protected Nullable<Vector2> destination;
     [HideInInspector] public float speedFactor = 1f;
 
@@ -37,10 +36,6 @@ public abstract class Entity : MonoBehaviour {
     void Update() {
         if (attackCooldown > 0f) {
             attackCooldown -= Time.deltaTime;
-        }
-
-        if (destination != null) {
-            debugDestination = destination.Value;
         }
         OnUpdate();
     }

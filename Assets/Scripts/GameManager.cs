@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 
     public EnemyManager enemyManager;
     public SpawnManager spawnManager;
+    public BackgroundManager backgroundManager;
 
     public Vector2 enemyDirection;
     public Transform leftSide;
