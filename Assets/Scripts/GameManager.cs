@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour {
             float randY = Random.Range(-1f, 1f);
             Vector3 randomVector3 = new Vector3(spawnPoint.position.x + randX, spawnPoint.position.y + randY, spawnPoint.position.z);
             GameObject Organ = Instantiate(organs[Random.Range(0, organs.Length - 1)], randomVector3, spawnPoint.rotation, transform);
-            Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f)), ForceMode2D.Impulse);
-            Destroy(Organ, 2f);
+            //Organ.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f)), ForceMode2D.Impulse);
+            backgroundManager.AddToRoad(Organ);
         }
     }
 

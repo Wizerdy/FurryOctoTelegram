@@ -51,8 +51,8 @@ public class Enemy : Entity {
             float randY = Random.Range(-1f, 1f);
             Vector3 randomVector3 = new Vector3(transform.position.x + randX, transform.position.y + randY, transform.position.z);
             GameObject trash = Instantiate(corpse[i], randomVector3, transform.rotation, GameManager.instance.transform);
-            trash.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f)), ForceMode2D.Impulse);
-            Destroy(trash, 2f);
+            //trash.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f)), ForceMode2D.Impulse);
+            GameManager.instance.backgroundManager.AddToRoad(trash);
         }
     }
 
