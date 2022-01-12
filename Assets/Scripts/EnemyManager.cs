@@ -23,6 +23,7 @@ public class EnemyManager : MonoBehaviour {
     public float enemySpeed;
     public float timeToMove = 1f;
     public float maxEnemySpeed;
+    public AnimationCurve speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
     private float speedFactor;
     private int enemyMax = 0;
 
@@ -33,6 +34,14 @@ public class EnemyManager : MonoBehaviour {
     private Vector2 enemyDirection = Vector2.right;
     private Vector2[] nextEnemyDirection;
     private float moveTimer;
+
+    #region Properties
+
+    public bool HasWaveEnd {
+        get { return enemyList.Count > 0; }
+    }
+
+    #endregion
 
     #region Unity Callbacks
 
@@ -126,7 +135,8 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void OnEnemyDeath(Enemy enemy) {
-        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * Mathf.InverseLerp(0, enemyMax, enemyList.Count));
+        float perc = Mathf.InverseLerp(0, enemyMax, enemyList.Count);
+        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * speedCurve.Evaluate(perc));
         for (int i = 0; i < enemyList.Count; i++) {
             enemyList[i].enemy.speedFactor = speedFactor;
         }
