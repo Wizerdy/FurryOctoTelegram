@@ -87,6 +87,13 @@ public abstract class Entity : MonoBehaviour {
     public void Attack() {
         if (bullets == null || bullets.Count <= 0 || attackCooldown > 0f) { return; }
         if (attackSpeed > 0f) { attackCooldown = 1f / attackSpeed; }
+        if (side == 2)
+        {
+            SoundManager.i.Play("EnemyThrow");
+        } else
+        {
+            SoundManager.i.Play("PlayerThrow");
+        }
 
         int bulletIndex = UnityEngine.Random.Range(0, bullets.Count - 1);
         //Quaternion rotation = Quaternion.LookRotation(bulletDirection, Vector3.up);

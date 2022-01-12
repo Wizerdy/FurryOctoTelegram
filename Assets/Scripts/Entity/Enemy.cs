@@ -62,6 +62,14 @@ public class Enemy : Entity {
             GameManager.instance.OrganExplosion(transform, 1);
             GameManager.instance.BloodExplosion(transform);
             CorpseExplosion();
+            int rand = Random.Range(0, 2);
+            if (rand % 2 == 0)
+            {
+                SoundManager.i.Play("IceCrack");
+            } else
+            {
+                SoundManager.i.Play("BoneCrack");
+            }
             GameManager.instance.AddScore(score);
             GameManager.instance.cameraManager.OnEnemyDestroyed();
         } catch(System.Exception e) {

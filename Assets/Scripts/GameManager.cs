@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour {
         instance = this;
     }
 
+    private void Start()
+    {
+        SoundManager.i.Play("Music");
+    }
+
     private void LateUpdate() {
         if (nextEnemyDirection > 0) {
             enemyDirection.x = Tools.Positive(enemyDirection.x);
