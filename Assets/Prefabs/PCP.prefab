@@ -49,12 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: 2
-  bullets: []
+  bullets:
+  - {fileID: 7369600834492724658, guid: 56862ed819265f4458a5f145d7b5dc34, type: 3}
   speed: 5
   bulletSpeed: 12
   bulletDirection: {x: 0, y: -1}
-  attackSpeed: 0.5
-  debugDestination: {x: 0, y: 0}
+  attackSpeed: 1
+  attackPoint: {fileID: 0}
   speedFactor: 1
   score: 500
   corpse:

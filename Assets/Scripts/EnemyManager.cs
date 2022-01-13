@@ -146,6 +146,11 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
+    public void WaveMe() {
+        GameManager.instance.AddDifficulty();
+
+    }
+
     #region Getters
 
     public List<EnemyCell> GetEnemyOnFront() {

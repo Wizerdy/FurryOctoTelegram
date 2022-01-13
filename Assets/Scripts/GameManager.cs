@@ -75,4 +75,8 @@ public class GameManager : MonoBehaviour {
         backgroundManager.AddToRoad(pEffect);
         Destroy(pEffect, 10f);
     }
+
+    public void AddDifficulty() {
+        enemyManager.enemySpeed += enemyManager.enemySpeed * 0.1f;
+    }
 }

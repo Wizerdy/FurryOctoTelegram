@@ -17,7 +17,7 @@ public class BackgroundManager : MonoBehaviour {
         for (int i = 0; i < maps.Length; i++) {
             if (maps[i] == null) {
                 maps[i] = Instantiate(mapPrefab, Vector3.zero + Vector3.up * mapSize.y * i, Quaternion.identity).transform;
-                maps[i].transform.parent = transform.parent;
+                maps[i].parent = transform.parent;
             }
         }
     }
