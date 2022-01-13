@@ -10,7 +10,7 @@ public class UFO : Enemy {
         attackCooldown = Random.Range(0, 1f / attackSpeed);
     }
 
-    protected override void OnMove(Vector2 direction) { }
+    protected override void OnSetMove(Vector2 direction) { }
 
     protected override void OnUpdate() {
         MoveTo(Vector2.right);

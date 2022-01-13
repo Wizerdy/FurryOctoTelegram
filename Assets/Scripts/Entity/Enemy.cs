@@ -8,12 +8,33 @@ public class Enemy : Entity {
     public int score;
 
     public GameObject[] corpse;
+    public System.Nullable<Vector2> place;
+    public bool inPlace = false;
 
     private Coroutine rtn_delayMoveTo = null;
 
-    protected override void OnStart() { }
+    protected override void OnStart() {
+        if (place != null) {
+            inPlace = false;
+            SetDestination(place.Value, 0.2f);
+        }
+    }
 
     protected override void OnUpdate() { }
+
+    public void SetPlace(Vector2 position) {
+        place = position;
+    }
+
+    public void SetDestination(Vector2 position, float maxDeltaTime) {
+        if (rtn_delayMoveTo != null) { StopCoroutine(rtn_delayMoveTo); }
+        float time = Random.Range(0, maxDeltaTime);
+        rtn_delayMoveTo = StartCoroutine(Tools.Delay(SetDestination, position, time));
+    }
+
+    public void SetDestination(Vector2 position) {
+        destination = position;
+    }
 
     public void MoveTo(Vector2 direction, float maxDeltaTime) {
         if (rtn_delayMoveTo != null) { StopCoroutine(rtn_delayMoveTo); }
@@ -21,7 +42,17 @@ public class Enemy : Entity {
         rtn_delayMoveTo = StartCoroutine(Tools.Delay(MoveTo, direction, time));
     }
 
-    protected override void OnMove(Vector2 direction) {
+    protected override void OnSetMove(Vector2 direction) {
+        if (rb.position.x < GameManager.instance.leftSide.position.x) {
+            EnemyManager.instance.ChangeDirection(EnemyManager.Side.RIGHT);
+        } else if (rb.position.x > GameManager.instance.rightSide.position.x) {
+            EnemyManager.instance.ChangeDirection(EnemyManager.Side.LEFT);
+        }
+    }
+
+    protected override void OnArrive() {
+        if (!inPlace) { inPlace = true; }
+
         if (rb.position.x < GameManager.instance.leftSide.position.x) {
             EnemyManager.instance.ChangeDirection(EnemyManager.Side.RIGHT);
         } else if (rb.position.x > GameManager.instance.rightSide.position.x) {
@@ -38,8 +69,7 @@ public class Enemy : Entity {
             return;
         }
         if (collision.gameObject.CompareTag("Player")) {
-            // YOU LOSE
-            Debug.Break();
+            GameManager.instance.GameOver();
         }
     }
 
@@ -59,19 +89,20 @@ public class Enemy : Entity {
     protected override void OnDead() {
         try {
             GameManager.instance.enemyManager.OnEnemyDeath(this);
-            GameManager.instance.OrganExplosion(transform, 1);
-            GameManager.instance.BloodExplosion(transform);
-            CorpseExplosion();
-            int rand = Random.Range(0, 2);
-            if (rand % 2 == 0)
-            {
-                SoundManager.i.Play("IceCrack");
-            } else
-            {
-                SoundManager.i.Play("BoneCrack");
-            }
             GameManager.instance.AddScore(score);
-            GameManager.instance.cameraManager.OnEnemyDestroyed();
+
+            if (GameManager.instance.effects[0]) {
+                GameManager.instance.OrganExplosion(transform, 1);
+                GameManager.instance.BloodExplosion(transform);
+                CorpseExplosion();
+                int rand = Random.Range(0, 2);
+                if (rand % 2 == 0) {
+                    SoundManager.i.Play("IceCrack");
+                } else {
+                    SoundManager.i.Play("BoneCrack");
+                }
+                GameManager.instance.cameraManager.OnEnemyDestroyed();
+            }
         } catch(System.Exception e) {
             Debug.LogException(e);
         }
@@ -96,5 +127,10 @@ public class Enemy : Entity {
             Gizmos.color = Color.green;
             //Gizmos.DrawSphere(rb.position, 0.1f);
         }
+    }
+
+    public void ToggleAnimator(bool state) {
+        GetComponent<Animator>().enabled = state;
+        transform.GetChild(0).GetComponent<Animator>().enabled = state;
     }
 }

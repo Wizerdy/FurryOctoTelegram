@@ -16,6 +16,7 @@ public class SpawnManager : MonoBehaviour {
 
     void Start() {
         SpawnEnemies(transform.position);
+        ufoSpawnTimer = Random.Range(ufoSpawnTime - ufoSpawnTimeDelta, ufoSpawnTime + ufoSpawnTimeDelta);
     }
 
     private void Update() {
@@ -43,10 +44,20 @@ public class SpawnManager : MonoBehaviour {
             for (int x = 0; x < cellNumbers.x; x++) {
                 Vector2 pos = new Vector2(x * margin.x, y * margin.y);
                 pos += position;
-                Enemy lastEnemy = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
+
+                Vector2 spawnPos = pos;
+                if (GameManager.instance.topBound != null) {
+                    spawnPos.y += GameManager.instance.topBound.position.y;
+                }
+
+                Enemy lastEnemy = Instantiate(enemyPrefab[enemyIndex], spawnPos, Quaternion.identity);
                 lastEnemy.transform.parent = transform;
+                lastEnemy.SetPlace(pos);
                 EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), lastEnemy));
                 lastEnemy.GetComponent<SpriteRenderer>().sortingOrder += y;
+                if (!GameManager.instance.effects[8]) {
+                    lastEnemy.ToggleAnimator(false);
+                }
             }
             if (y % 2 == 0) {
                 enemyIndex++;

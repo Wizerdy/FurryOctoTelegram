@@ -36,6 +36,8 @@ public class SoundManager : MonoBehaviour
 
     public void Play(string name)
     {
+        if (!GameManager.instance.effects[7]) { return; }
+
         Sound s;
         s = name == "Music" ? music : Array.Find(sounds, sound => sound.name == name);
         if (s == null)

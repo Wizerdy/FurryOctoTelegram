@@ -9,7 +9,7 @@ public class BackgroundManager : MonoBehaviour {
 
     private Vector2 mapSize;
 
-    void Start() {
+    void Awake() {
         Sprite mapSprite = mapPrefab.GetComponent<SpriteRenderer>().sprite;
         Rect rect = mapSprite.rect;
         mapSize = Vector2.Scale(mapPrefab.transform.localScale, new Vector2(rect.width, rect.height));
@@ -23,6 +23,8 @@ public class BackgroundManager : MonoBehaviour {
     }
 
     void Update() {
+        if (!GameManager.instance.effects[3]) { return; }
+
         for (int i = 0; i < maps.Length; i++) {
             maps[i].position += Vector3.up * speed * Time.deltaTime;
         }

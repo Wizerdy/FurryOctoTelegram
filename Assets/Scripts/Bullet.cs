@@ -26,8 +26,7 @@ public class Bullet : MonoBehaviour {
             if (entity.Side == side) { return; }
 
             if (collision.gameObject.CompareTag("Player")) {
-                // YOU LOSE
-                Debug.Break();
+                GameManager.instance.GameOver();
             }
 
             Destroy(gameObject);

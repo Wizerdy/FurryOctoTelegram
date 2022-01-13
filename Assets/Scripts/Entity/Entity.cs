@@ -17,7 +17,7 @@ public abstract class Entity : MonoBehaviour {
     protected Rigidbody2D rb = null;
 
     [Header("Movement")]
-    protected Nullable<Vector2> destination;
+    [HideInInspector] public Nullable<Vector2> destination;
     [HideInInspector] public float speedFactor = 1f;
     protected Animator animator = null;
 
@@ -67,21 +67,25 @@ public abstract class Entity : MonoBehaviour {
         }
 
         destination = startPos + direction;
-        OnMove(direction);
+        OnSetMove(direction);
     }
 
     protected virtual void UpdateMove() {
         if (destination != null) {
             Vector2 direction = (destination.Value - (Vector2)transform.position).normalized;
             rb.position += direction * speed * speedFactor * Time.deltaTime;
+            OnMove();
             if (Vector2.Distance(destination.Value, rb.position) < speed * speedFactor * Time.deltaTime) {
+                OnArrive();
                 rb.position = destination.Value;
                 destination = null;
             }
         }
     }
 
-    protected virtual void OnMove(Vector2 direction) { }
+    protected virtual void OnSetMove(Vector2 direction) { }
+    protected virtual void OnMove() { }
+    protected virtual void OnArrive() { }
 
     public void Attack() {
         if (bullets == null || bullets.Count <= 0 || attackCooldown > 0f) { return; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ToolsBoxEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
@@ -27,16 +28,34 @@ public class GameManager : MonoBehaviour {
     public CameraController cameraManager;
     public ParticleSystem ps;
     private int nextEnemyDirection = 0;
+    public ParticleSystem gameOverParticle;
+    [HideInInspector] public bool gameOver;
 
     public Transform leftBound, rightBound, topBound, botBound;
+
+
+    [Header("Effects")]
+    public bool[] effects = new bool[9];
+    [Header("Score")]
+    public GameObject bloodScore;
+    public Animator heartScore;
+    [Header("Bullets")]
+    public List<GameObject> bullets;
+    [Header("Cape")]
+    public GameObject capeCloth;
+    [Header("MapAmbiance")]
+    public List<GameObject> mapAmbianceParticles;
 
     private void Awake() {
         instance = this;
     }
 
-    private void Start()
-    {
+    private void Start() {
         SoundManager.i.Play("Music");
+
+        for (int i = 0; i < effects.Length; i++) {
+            UpdateEffect(i);
+        }
     }
 
     private void LateUpdate() {
@@ -44,6 +63,61 @@ public class GameManager : MonoBehaviour {
             enemyDirection.x = Tools.Positive(enemyDirection.x);
         } else if (nextEnemyDirection < 0) {
             enemyDirection.x = Tools.Negative(enemyDirection.x);
+        }
+
+        for (int i = 0; i < effects.Length; i++) {
+            if (Input.GetKeyDown(i.ToString())) {
+                effects[i] = !effects[i];
+                UpdateEffect(i);
+            }
+        }
+    }
+
+    public void UpdateEffect(int index) {
+        switch (index) {
+            case 1:
+                if (bloodScore != null) {
+                    bloodScore.SetActive(effects[1]);
+                }
+                if (heartScore != null) {
+                    heartScore.enabled = effects[1];
+                }
+                break;
+            case 2:
+                if (bullets.Count > 0) {
+                    for (int i = 0; i < bullets.Count; i++) {
+                        Animator bulletAnimator = bullets[i].transform.GetChild(0).GetComponent<Animator>();
+                        bulletAnimator.enabled = effects[2];
+                        bulletAnimator.transform.GetChild(0).gameObject.SetActive(effects[2]);
+                    }
+                }
+                break;
+            case 4:
+                if (capeCloth != null) {
+                    for (int i = 0; i < capeCloth.transform.childCount; i++) {
+                        capeCloth.transform.GetChild(i).GetComponent<Rigidbody2D>().simulated = effects[4];
+                    }
+                }
+                break;
+            case 5:
+                Camera.main.GetComponent<Volume>().enabled = effects[5];
+                break;
+            case 6:
+                for (int i = 0; i < mapAmbianceParticles.Count; i++) {
+                    mapAmbianceParticles[i].SetActive(effects[6]);
+                }
+                for (int i = 0; i < backgroundManager.maps.Length; i++) {
+                    Transform firstChild = backgroundManager.maps[i].GetChild(0);
+                    for (int j = 0; j < firstChild.childCount; j++) {
+                        firstChild.GetChild(j).gameObject.SetActive(effects[6]);
+                    }
+                }
+                break;
+            case 8:
+                for (int i = 0; i < enemyManager.enemyList.Count; i++) {
+                    enemyManager.enemyList[i].enemy.ToggleAnimator(effects[8]);
+                }
+                break;
         }
     }
 
@@ -54,7 +128,9 @@ public class GameManager : MonoBehaviour {
     public void AddScore(int amount) {
         totalScore += amount;
         scoreText.text = totalScore.ToString();
-        scoreManager.Shake();
+        if (effects[1]) {
+            scoreManager.Shake();
+        }
     }
 
     public void OrganExplosion(Transform spawnPoint, int number) {
@@ -69,8 +145,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void BloodExplosion(Transform spawnPoint)
-    {
+    public void BloodExplosion(Transform spawnPoint) {
         GameObject pEffect = Instantiate(bloodExplosion, spawnPoint.position, spawnPoint.rotation, transform);
         backgroundManager.AddToRoad(pEffect);
         Destroy(pEffect, 10f);
@@ -81,6 +156,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GameOver() {
-
+        gameOverParticle.Play();
+        gameOver = true;
+        Time.timeScale = 0;
     }
 }

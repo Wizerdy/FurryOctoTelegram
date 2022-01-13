@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ad6c85a5698c9498abae7e38d2ab2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side: 2
+  side: 1
   bullets:
   - {fileID: 7369600834492724658, guid: eaa912af8376fef4e946010ee0b0c662, type: 3}
   speed: 2
@@ -165,6 +165,7 @@ MonoBehaviour:
   - {fileID: 6587937068264141502, guid: ec02117bd97114d40bd635bf2d360ea1, type: 3}
   - {fileID: 6718733601586726184, guid: bb33f86762aa8244b9cbbfd61e93b4dc, type: 3}
   - {fileID: 9196491064213601902, guid: 21142b4fbcca54946990cad75ecd59c6, type: 3}
+  inPlace: 0
 --- !u!212 &5571671525015367365
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 1.024}
+    oldSize: {x: 2.048, y: 2.048}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

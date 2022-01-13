@@ -20,6 +20,9 @@ public class EnemyManager : MonoBehaviour {
 
     [HideInInspector] public List<EnemyCell> enemyList;
     [HideInInspector] public List<Enemy> ufoList;
+
+    public bool updateEnemy = false;
+
     public float enemySpeed;
     public float timeToMove = 1f;
     public float maxEnemySpeed;
@@ -39,7 +42,7 @@ public class EnemyManager : MonoBehaviour {
     #region Properties
 
     public bool HasWaveEnd {
-        get { return enemyList.Count <= 1; }
+        get { return enemyList.Count <= 0; }
     }
 
     #endregion
@@ -65,6 +68,15 @@ public class EnemyManager : MonoBehaviour {
     }
 
     void Update() {
+        if (!updateEnemy) {
+            for (int i = 0; i < enemyList.Count; i++) {
+                if (!enemyList[i].enemy.inPlace) {
+                    return;
+                }
+            }
+            updateEnemy = true;
+        }
+
         // Movements
         if (moveTimer > 0.0f) {
             moveTimer -= Time.deltaTime;
@@ -136,6 +148,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void OnEnemyDeath(Enemy enemy) {
+        enemyList.Remove(GetEnemy(enemy));
         float perc = Mathf.InverseLerp(0, enemyMax, enemyList.Count);
         speedFactor = minEnemySpeed + ((maxEnemySpeed - minEnemySpeed) - (maxEnemySpeed - minEnemySpeed) * speedCurve.Evaluate(perc));
         for (int i = 0; i < enemyList.Count; i++) {
@@ -149,6 +162,7 @@ public class EnemyManager : MonoBehaviour {
 
     public void WaveMe() {
         GameManager.instance.AddDifficulty();
+        updateEnemy = false;
         GameManager.instance.spawnManager.SpawnEnemies(GameManager.instance.spawnManager.transform.position);
     }
 
