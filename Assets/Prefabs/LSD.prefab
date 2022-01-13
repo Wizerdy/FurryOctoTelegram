@@ -158,7 +158,7 @@ MonoBehaviour:
   bulletSpeed: 12
   bulletDirection: {x: 0, y: -1}
   attackSpeed: 1
-  debugDestination: {x: 0, y: 0}
+  attackPoint: {fileID: 0}
   speedFactor: 1
   score: 100
   corpse:
@@ -251,7 +251,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.018164083, y: -0.20182323}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -262,7 +262,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6488277, y: 0.59635353}
   m_EdgeRadius: 0
 --- !u!95 &-3633578581818679705
 Animator:

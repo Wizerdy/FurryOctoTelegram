@@ -46,6 +46,7 @@ public class SpawnManager : MonoBehaviour {
                 Enemy lastEnemy = Instantiate(enemyPrefab[enemyIndex], pos, Quaternion.identity);
                 lastEnemy.transform.parent = transform;
                 EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), lastEnemy));
+                lastEnemy.GetComponent<SpriteRenderer>().sortingOrder += y;
             }
             if (y % 2 == 0) {
                 enemyIndex++;

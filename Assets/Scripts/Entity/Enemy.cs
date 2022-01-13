@@ -77,6 +77,13 @@ public class Enemy : Entity {
         }
     }
 
+    protected override void OnAttack() {
+        base.OnAttack();
+        if (animator != null) {
+            animator.SetTrigger("AttackEnemy");
+        }
+    }
+
     private void OnDestroy() {
         EnemyManager.instance.enemyList.Remove(EnemyManager.instance.GetEnemy(this));
     }

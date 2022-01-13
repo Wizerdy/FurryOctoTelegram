@@ -77,6 +77,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void AddDifficulty() {
-        enemyManager.enemySpeed += enemyManager.enemySpeed * 0.1f;
+        enemyManager.AddDifficulty();
     }
 }

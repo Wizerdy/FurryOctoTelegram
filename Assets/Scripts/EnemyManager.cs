@@ -23,6 +23,7 @@ public class EnemyManager : MonoBehaviour {
     public float enemySpeed;
     public float timeToMove = 1f;
     public float maxEnemySpeed;
+    private float minEnemySpeed = 1f;
     public AnimationCurve speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
     private float speedFactor;
     private int enemyMax = 0;
@@ -38,7 +39,7 @@ public class EnemyManager : MonoBehaviour {
     #region Properties
 
     public bool HasWaveEnd {
-        get { return enemyList.Count > 0; }
+        get { return enemyList.Count <= 1; }
     }
 
     #endregion
@@ -136,18 +137,28 @@ public class EnemyManager : MonoBehaviour {
 
     public void OnEnemyDeath(Enemy enemy) {
         float perc = Mathf.InverseLerp(0, enemyMax, enemyList.Count);
-        speedFactor = 1 + ((maxEnemySpeed - 1) - (maxEnemySpeed - 1) * speedCurve.Evaluate(perc));
+        speedFactor = minEnemySpeed + ((maxEnemySpeed - minEnemySpeed) - (maxEnemySpeed - minEnemySpeed) * speedCurve.Evaluate(perc));
         for (int i = 0; i < enemyList.Count; i++) {
             enemyList[i].enemy.speedFactor = speedFactor;
         }
-
+        Debug.Log(enemyList.Count);
         if (HasWaveEnd) {
-            //GameManager.instance.AddDifficulty();
+            WaveMe();
         }
     }
 
     public void WaveMe() {
         GameManager.instance.AddDifficulty();
+        GameManager.instance.spawnManager.SpawnEnemies(GameManager.instance.spawnManager.transform.position);
+    }
+
+    public void AddDifficulty() {
+        maxEnemySpeed *= 1.1f;
+        minEnemySpeed *= 1.1f;
+        if (minEnemySpeed > maxEnemySpeed) {
+            minEnemySpeed = maxEnemySpeed;
+        }
+        enemySpeed *= 1.1f;
 
     }
 
