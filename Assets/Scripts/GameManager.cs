@@ -79,4 +79,8 @@ public class GameManager : MonoBehaviour {
     public void AddDifficulty() {
         enemyManager.AddDifficulty();
     }
+
+    public void GameOver() {
+
+    }
 }
