@@ -164,6 +164,7 @@ public class EnemyManager : MonoBehaviour {
         GameManager.instance.AddDifficulty();
         updateEnemy = false;
         GameManager.instance.spawnManager.SpawnEnemies(GameManager.instance.spawnManager.transform.position);
+        SoundManager.i.Play("Cheer");
     }
 
     public void AddDifficulty() {

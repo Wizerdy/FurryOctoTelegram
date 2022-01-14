@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
-        SoundManager.i.Play("Music");
 
         if (effects == null) {
             effects = new bool[10];
@@ -74,6 +73,10 @@ public class GameManager : MonoBehaviour {
             if (Input.GetKeyDown(i.ToString())) {
                 effects[i] = !effects[i];
                 UpdateEffect(i);
+                if (i == 7)
+                {
+                    SoundManager.i.Play("Music");
+                }
             }
         }
 
