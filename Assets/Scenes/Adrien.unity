@@ -6244,7 +6244,6 @@ MonoBehaviour:
   rightBound: {fileID: 1188930834}
   topBound: {fileID: 187092496}
   botBound: {fileID: 1730802557}
-  effects: 000000000000000100
   bloodScore: {fileID: 445424312}
   heartScore: {fileID: 1254698522}
   bullets:
@@ -13091,7 +13090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 141, y: -28.883636}
+  m_AnchoredPosition: {x: 141, y: -28.883667}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1060183003
@@ -14586,7 +14585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.26184, y: -28.631683}
+  m_AnchoredPosition: {x: 140.26184, y: -28.631714}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1639269658

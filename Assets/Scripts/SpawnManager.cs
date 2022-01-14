@@ -55,7 +55,7 @@ public class SpawnManager : MonoBehaviour {
                 lastEnemy.SetPlace(pos);
                 EnemyManager.instance.enemyList.Add(new EnemyManager.EnemyCell(new Vector2(y, x), lastEnemy));
                 lastEnemy.GetComponent<SpriteRenderer>().sortingOrder += y;
-                if (!GameManager.instance.effects[8]) {
+                if (!GameManager.effects[8]) {
                     lastEnemy.ToggleAnimator(false);
                 }
             }

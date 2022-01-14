@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 
 
     [Header("Effects")]
-    public bool[] effects = new bool[9];
+    public static bool[] effects = new bool[10];
     [Header("Score")]
     public GameObject bloodScore;
     public Animator heartScore;
@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         SoundManager.i.Play("Music");
+
+        if (effects == null) {
+            effects = new bool[10];
+        }
 
         for (int i = 0; i < effects.Length; i++) {
             UpdateEffect(i);

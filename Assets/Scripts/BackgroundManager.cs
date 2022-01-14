@@ -23,7 +23,7 @@ public class BackgroundManager : MonoBehaviour {
     }
 
     void Update() {
-        if (!GameManager.instance.effects[3]) { return; }
+        if (!GameManager.effects[3]) { return; }
 
         for (int i = 0; i < maps.Length; i++) {
             maps[i].position += Vector3.up * speed * Time.deltaTime;

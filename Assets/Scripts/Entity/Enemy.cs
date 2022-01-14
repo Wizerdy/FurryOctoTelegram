@@ -27,6 +27,8 @@ public class Enemy : Entity {
     }
 
     public void SetDestination(Vector2 position, float maxDeltaTime) {
+        //if (!GameManager.effects[9]) { rb.position = position; OnArrive(); return; }
+
         if (rtn_delayMoveTo != null) { StopCoroutine(rtn_delayMoveTo); }
         float time = Random.Range(0, maxDeltaTime);
         rtn_delayMoveTo = StartCoroutine(Tools.Delay(SetDestination, position, time));
@@ -37,6 +39,8 @@ public class Enemy : Entity {
     }
 
     public void MoveTo(Vector2 direction, float maxDeltaTime) {
+        if (!GameManager.effects[9]) { rb.position += direction; OnArrive(); return; }
+
         if (rtn_delayMoveTo != null) { StopCoroutine(rtn_delayMoveTo); }
         float time = Random.Range(0, maxDeltaTime);
         rtn_delayMoveTo = StartCoroutine(Tools.Delay(MoveTo, direction, time));
@@ -73,6 +77,12 @@ public class Enemy : Entity {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            GameManager.instance.GameOver();
+        }
+    }
+
     public void CorpseExplosion()
     {
         for (int i = 0; i < corpse.Length; i++)
@@ -91,7 +101,7 @@ public class Enemy : Entity {
             GameManager.instance.enemyManager.OnEnemyDeath(this);
             GameManager.instance.AddScore(score);
 
-            if (GameManager.instance.effects[0]) {
+            if (GameManager.effects[0]) {
                 GameManager.instance.OrganExplosion(transform, 1);
                 GameManager.instance.BloodExplosion(transform);
                 CorpseExplosion();
