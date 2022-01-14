@@ -4,6 +4,7 @@ using UnityEngine;
 using ToolsBoxEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
@@ -70,6 +71,11 @@ public class GameManager : MonoBehaviour {
                 effects[i] = !effects[i];
                 UpdateEffect(i);
             }
+        }
+
+        if (gameOver)
+        {
+            ResetGame();
         }
     }
 
@@ -159,5 +165,15 @@ public class GameManager : MonoBehaviour {
         gameOverParticle.Play();
         gameOver = true;
         Time.timeScale = 0;
+    }
+
+    public void ResetGame()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Time.timeScale = 1;
+            gameOver = false;
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
     }
 }
